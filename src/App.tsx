@@ -1,26 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { FILE_PATH, LANG } from './constants';
+import { Editor } from './Editor/Editor';
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <div style={{ height: '350px', width: '100%', padding: '20px', boxSizing: 'border-box' }}>
+            <button
+                type="button"
+                style={{
+                    marginBottom: '20px'
+                }}
+                onClick={() => {
+                    (window as any).debugApi.debug.startDebugging(undefined, {
+                        name: 'deb',
+                        type: LANG,
+                        request: 'launch'
+                    });
+                }
+            }>
+                start debugging
+            </button>
+
+            <Editor
+                id="some-unique-id"
+                language={LANG}
+                filePath={FILE_PATH}
+                code={`function fn() {\n\treturn 1;\n}\n\nfn();\n`}
+            />
+        </div>
+    );
 }
 
 export default App;
